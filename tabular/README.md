@@ -1,6 +1,6 @@
 # tabular
 
-This package provides supporting routines for creating LaTeX tables using go.
+This package provides supporting routines for creating LaTeX tables using Go.
 
 Get the package using:
 
