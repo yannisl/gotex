@@ -6,7 +6,9 @@ package main
 
 import (
 	//"fmt"
-	"gotex/tabular"
+	"github.com/yannisl/gotex/tabular"
+	"gotex/enviro"
+	"fmt"
 )
 
 
@@ -29,4 +31,12 @@ func main() {
 	// TODO better method for data definition maybe from a plain string which get split?
 	//  Qty Apr May Jun Jul
 	//  100 200 300 400 500 
+
+	z:= enviro.NewEnvironment()
+	y:=z.Wrap("enumerate","\\item This is first item")
+	fmt.Println(y)
+
+	tex:=new(enviro.TeXEnviro)
+	y1 :=tex.Wrap("enumerate","\\item This is first item\n")
+	fmt.Println(y1)
 }

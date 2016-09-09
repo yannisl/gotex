@@ -24,6 +24,12 @@ type Insert interface{
 	Insert(row ...interface{}) 
 }
 
+// MWE is an interface to create Minimum Working Examples
+// of LaTeX documents
+type MWE interface{
+	MWE(latexOptions ...string)
+}
+
 type Style interface{}
 type Data [][]string
 type Row []string
@@ -74,10 +80,10 @@ func (t *Tabular) Insert(element ...interface{}) {
 
 func (t *Tabular) checkSpecificationList() bool {
 	if t.SpecificationList != nil {
-		fmt.Println("Not Empty")
+		//fmt.Println("Not Empty")
 		return false
 	} else {
-		fmt.Println("There is a spec")
+		//fmt.Println("There is a spec")
 		return true
 	}
 }
