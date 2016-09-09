@@ -143,7 +143,7 @@ func (c *Caption) Caption (s string, idx bool) string {
 
 //MWE wraps a tabular environment, as a minimum working
 //LaTeX example 
-func (t *Tabular) MWE(latexOptions ...string) {
+func (t *Tabular) CreateMWE(latexOptions ...string) {
    s:="\\documentclass{article}\n" + "\\usepackage{booktabs}\n" +
     "\\begin{document}\n"
     s +=  t.Rendered 

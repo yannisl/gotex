@@ -27,7 +27,7 @@ func main() {
 	t.Caption.Text = "This is the caption of the table."
 	t.Caption.Index = false
 	t.ToTeX()
-	t.MWE()
+	t.CreateMWE()
 	// TODO better method for data definition maybe from a plain string which get split?
 	//  Qty Apr May Jun Jul
 	//  100 200 300 400 500 
