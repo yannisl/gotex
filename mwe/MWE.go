@@ -10,6 +10,8 @@ package mwe
 import (
 	"fmt"
 	"io/ioutil"
+	"regexp"
+	"strconv"
 )
 
 // MWE is an interface to create Minimum Working Examples
@@ -50,21 +52,46 @@ var templ string = `% From Wikibooks
 %% Traditional LaTeX or TeX follows...
 \endinput`
 
+var CharacterTable string = `%<*package>
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \’     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \‘     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%</package>`
+
+var Test string = `\begin{document}
+ 				 \chapter{Test} 	
+				 This is the body of the document
+				 \begin{figure}
+				 some body
+				 \end{figure}
+                 \end{document}`
+
 type Sty struct {
 	Type        string
 	FileName    string
 	PackageName string
+	PackageTitle string
 	License     string
 	Author      string
+	Date        string 
 }
 
 // Struct for holding a LaTeX .cls file (.dtx are handled separately)
 type LaTeXClass struct {
-	Type        string
-	FileName    string
-	PackageName string
-	License     string
-	Author      string
+	BaseClass string
+	Cls Sty
 }
 
 //MWE wraps a tabular environment, as a minimum working
@@ -92,7 +119,7 @@ func (t *Sty) CreateLaTeXStyle(path string, body string, latexOptions ...string)
 	fmt.Print(string(d))
 }
 
-//CreateLaTeXStyle wraps a tabular environment, as a minimum working
+//CreateLaTeXClass assembles a LaTeX .cls file
 //LaTeX example
 func (t *LaTeXClass) CreateLaTeXClass(path string, body string, latexOptions ...string) {
 	s := "\\documentclass{article}\n" + "\\usepackage{booktabs}\n" +
@@ -109,4 +136,73 @@ func (t *LaTeXClass) CreateLaTeXClass(path string, body string, latexOptions ...
 func Example() {
 	t := new(MWE)
 	t.CreateMWE("mwe1.tex", "code...")
+}
+
+func Extract() {
+	Num:=1
+	//gets anything between body
+	//r, err := regexp.Compile("(?s)(\\\\begin{document})(.+)(\\\\end{document})")
+	r, err := regexp.Compile("\\\\(.+)")
+	if err != nil {
+        fmt.Printf("There is a problem with your regexp.\n")
+        return
+    }
+    // Will print 'Match'
+    //r.ReplaceAllString("\\bc def ghi", "$2 $1") 
+    fmt.Printf("\nMatch: %s\n",  r.ReplaceAllString("\\bc \\def ghi", "SLASH"+ strconv.Itoa(Num) +"$1") )
+    fmt.Printf(Test)
+    //} else {
+      //  fmt.Printf("No match ")
+    //..}
+
+}
+
+// Parse provides helper functions for parsing text and replacing with other items
+// func Parse() {
+//         src := []byte(Test)
+//         search := regexp.MustCompile("(?s)\\\\(begin){figure}(.+)\\\\(end{figure})")
+//         repl := []byte("$1")
+
+//         i := 0
+// 	//n := -10
+// 	src = search.ReplaceAllFunc(src, 
+// 		func(s []byte) []byte {
+// 		i++
+// 		tmp:= append(strconv.AppendInt(repl,int64(i),10))
+// 		fmt.Println("\nSomething:",string(tmp), i, string(s),"fence")
+// 		t2:= string(tmp) 
+// 		return []byte(t2)
+// 		}
+// 	)
+
+		
+//     fmt.Println(string(src))
+// }
+
+func computedFrom(s string) string {
+        return fmt.Sprintf("computedFrom(%s)", s)
+}
+
+func Parse2(){
+        input := `b:foo="hop" b:bar="hu?"`
+        r := regexp.MustCompile(`\b.:\w+="([^"]+)"`)
+        r2 := regexp.MustCompile(`"([^"]+)"`)
+        fmt.Println(r.ReplaceAllStringFunc(input, func(m string) string {
+                match := string(r2.Find([]byte(m)))
+                fmt.Println(m)
+                return r2.ReplaceAllString(m, computedFrom(match))
+        }))
+}
+
+func Parse3(){
+        input := `\\begin{figure}
+                   Something
+                  \\end{figure}`
+        r := regexp.MustCompile(`\\\\begin{figure}`)
+        r2 := regexp.MustCompile(`(?s)(.+)\\\\end{figure}`)
+        fmt.Println(r.ReplaceAllStringFunc(input, func(m string) string {
+                match := string(r2.Find([]byte(m)))
+                fmt.Println("\n M:",m,"\n")
+                return r2.ReplaceAllString(m, computedFrom(match))
+        }))
 }

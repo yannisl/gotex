@@ -44,4 +44,6 @@ func main() {
 
 	t3 := new(mwe.Sty)
 	t3.CreateLaTeXStyle("test.sty", "")
+
+	mwe.Parse3()
 }
