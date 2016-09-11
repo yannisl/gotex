@@ -7,9 +7,9 @@ package main
 import (
 	//"fmt"
 	"fmt"
-	"gotex/MWE"
-	"gotex/enviro"
-	"gotex/tabular"
+	"github.com/yannisl/gotex/MWE"
+	"github.com/yannisl/gotex/enviro"
+	"github.com/gotex/tabular"
 )
 
 func main() {
