@@ -5,11 +5,10 @@
 package main
 
 import (
-	//"fmt"
 	"fmt"
 	"github.com/yannisl/gotex/MWE"
 	"github.com/yannisl/gotex/enviro"
-	"github.com/gotex/tabular"
+	"github.com/yannisl/gotex/tabular"
 )
 
 func main() {
