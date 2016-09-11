@@ -8,4 +8,4 @@ This package provides supporting routines for rendering LaTeX using Go.
 
 ##Why
 
-Although TeX can be coerced to achieve almost everything, it is difficult to use and has an unusual syntax; __gotex__ aims to bridge the gap where more comlex calculations and operations can be done using Go and the rendering can be achieved using TeX/LaTeX.
+Although TeX can be programmed to achieve almost everything, it is difficult to use and has an unusual syntax; __gotex__ aims to bridge the gap where more complex calculations and operations can be made using Go and then any required rendering can be produced using TeX/LaTeX.
