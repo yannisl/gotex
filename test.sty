@@ -1,0 +1,22 @@
+% From Wikibooks
+%% https://en.wikibooks.org/wiki/LaTeX/Creating_Packages
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{custom}[2013/01/13 Custom Package]
+\RequirePackage{lmodern}
+%% 'sans serif' option
+\DeclareOption{sans}{
+  \renewcommand{\familydefault}{\sfdefault}
+}
+%% 'roman' option
+\DeclareOption{roman}{
+  \renewcommand{\familydefault}{\rmdefault}
+}
+%% Global indentation option
+\newif\if@neverindent\@neverindentfalse
+\DeclareOption{neverindent}{
+  \@neverindenttrue
+}
+\ExecuteOptions{roman}
+\ProcessOptions\relax
+%% Traditional LaTeX or TeX follows...
+\endinput
