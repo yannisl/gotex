@@ -12,7 +12,7 @@ before_install:
 install:
     - go get github.com/yannisl/gotex/tabular
     - go get github.com/yannisl/gotex/enviro
-    - go get github.com/yannisl/gotex/MWE
+    - go get github.com/yannisl/gotex/mwe
 script:
 #    - $HOME/gopath/bin/goveralls -coverprofile=coverage.cov -service=travis-ci
 #    - bash <(curl -s https://codecov.io/bash)
