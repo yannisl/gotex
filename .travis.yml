@@ -16,5 +16,6 @@ install:
 script:
 #    - $HOME/gopath/bin/goveralls -coverprofile=coverage.cov -service=travis-ci
 #    - bash <(curl -s https://codecov.io/bash)
-    - go test -bench=. -benchmem ./...
+    - go test ./tabular
+    - go test ./enviro
     #- sh ./install_all_cmd.sh
