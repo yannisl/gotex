@@ -1,8 +1,6 @@
+[![Build Status](https://travis-ci.org/yannisl/gotex.svg?branch=master)](https://travis-ci.org/yannisl/gotex) [![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/emersion/stability-badges#experimental)
 
 
-[![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/emersion/stability-badges#experimental)
-
-[![Build Status](https://travis-ci.org/yannisl/gotex.svg?branch=master)](https://travis-ci.org/yannisl/gotex)
 
 # gotex
 
