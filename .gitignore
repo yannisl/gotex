@@ -77,3 +77,4 @@ ylbox.dtx
 *.log
 *.sublime-project
 *.sublime-workspace
+.s3
