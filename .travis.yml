@@ -3,18 +3,23 @@ go:
 - 1.6
 - 1.7
 - tip
+
 before_install:
-- go get golang.org/x/tools/cmd/goimports
-- go get github.com/mattn/goveralls
+    - go get golang.org/x/tools/cmd/goimports
+    - go get github.com/mattn/goveralls
+
 install:
-- go get github.com/yannisl/gotex/tabular
-- go get github.com/yannisl/gotex/enviro
-- go get github.com/yannisl/gotex/mwe
+    - go get github.com/yannisl/gotex/tabular
+    - go get github.com/yannisl/gotex/enviro
+    - go get github.com/yannisl/gotex/mwe
+
 script:
-- go test ./tabular
-- go test ./enviro
+    - go test -coverprofile=coverage.txt -covermode=atomic ./tabular
+    - go test -coverprofile=coverage.txt -covermode=atomic ./enviro
+   
 notifications:
   email: false
+
 deploy:
   provider: s3
   access_key_id: AKIAJJUBFQFCFGQWXKAA
