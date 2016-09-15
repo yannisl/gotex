@@ -1,0 +1,101 @@
+\chapter{Introduction}
+
+The Go package phd provides useful routines for manipulating documents and outputting them in
+various formats. 
+
+It also provides a tempalting mechanism for LaTeX files, as well as a package manager for these 
+files.
+
+\section{What GoPhd Can do for you?}
+
+GoPhd is an AI that helps you develop printed documents from all sorts of sources. All ypu need is mostly
+to type your document.
+
+- Provide scaffolding to create the disk structure of complex documents
+- Saves your documents to any of popular cloud stores (AWS, Google Drive, Microsoft)
+- Automatically produce a static website for your document (similar to gitbooks)
+- Version Control via Git
+
+All you need is to type your document
+
+```
+gophd init "mybook"
+
+```
+
+```
+gophd edit "mybook"
+
+```
+
+```
+gophd publish "mybook"
+
+```
+
+
+
+\section{Prerequisites}
+
+- You need to have a working Go installation
+- You need to have a TeX distribution on your machine such as TeXLive or MikTeX
+- If you are to use any of the many font utilities, you will need numerous fonts.
+- Extensive theming engine
+
+\section{Installation}
+
+There is a batch file for windows INSTALL.BAT that helps with the installation of the tool and some necessary fonts, that you might not find easily.
+
+\section{CLI}
+  \begin{verbatim}
+   phd directory  
+   phd new document_name  creates a directory tree
+
+   Produces a pdf from a set of documents in directory
+
+		├───config
+		├───thesis.tex
+		├───thesis
+			├─── main.tex or mydocument.tex
+			├─── config.toml
+		    └─── chapter01.tex
+		    └─── chapter02.tex
+		    └─── chapter02.tex
+		    └─── ...
+		    └─── graphics
+			    ├───logo.png
+				└───machine.png
+				├───amato.png
+			    └───amato.jpg
+			    └───amato.jpeg
+		├───themes
+				├───book
+				├───article
+				├───report
+				├───thesis
+				├───exam
+				├───lecturenotes
+				├───proceedings
+					├───template
+					├───license
+					├───partials
+		    		└───specials
+		├───temp
+	\end{verbatim}	
+
+\section{Conventions}
+
+If you creating a document out of a list of other files, it is preferable to keep the in a tree directory as shown above.
+
+There is always a site wide configuration folder `config` with settings for various tasks, explained a bit later. phd looks up first in the directory it is operated from for site-wise configuration file. This is used to provide defaults, if no configuration is found
+in the document directory. If none is found then it used build-in defaults.
+
+*gophd* can be embedded in other programs.
+
+Examples can be found in the examples directory.
+
+
+
+
+
+

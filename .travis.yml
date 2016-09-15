@@ -1,3 +1,5 @@
+sudo:required
+dist: trusty
 language: go
 go:
 - 1.6
@@ -7,7 +9,7 @@ go:
 before_install:
     - go get golang.org/x/tools/cmd/goimports
     - go get github.com/mattn/goveralls
-
+    - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended
 install:
     - go get github.com/yannisl/gotex/tabular
     - go get github.com/yannisl/gotex/enviro
