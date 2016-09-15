@@ -20,7 +20,8 @@ install:
 script:
     - go test -coverprofile=coverage.txt -covermode=atomic ./tabular
     - go test -coverprofile=coverage.txt -covermode=atomic ./enviro
-   
+    - pdflatex mwe.tex -interaction=nonstopmode
+
 notifications:
   email: false
 
