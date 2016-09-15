@@ -25,6 +25,9 @@ script:
 notifications:
   email: false
 
+addons:
+    artifacts: true
+
 deploy:
   provider: s3
   access_key_id: AKIAJJUBFQFCFGQWXKAA
