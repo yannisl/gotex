@@ -20,7 +20,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"phd/pkg/compiler"
 	"text/template"
 	"time"
 	"github.com/spf13/afero"
@@ -55,15 +54,27 @@ type hyper struct {
 }
 
 
+// DocI defines the interface for all type of documents.
+// It provides methods to render a document through templates
+// and to store it either locally or on the cloud.
+type DocI interface {
+	Options()
+	Wrap()
+	Compile()
+	Render()
+	Upload()
+	Mail() 
+	Paths() 
+	Show()
+}
 
-// Doc describes the structure for a document
+// Doc describes the structure of a publication. A publication can be anything from
+// a letter, a poem, a report, an article, proceedings or even an encyclopedia. Anything that
+// can be printed as a pdf. It can also be a website!
 type Doc struct {
 	//scriptContext   *script.Context
 	DocumentID      string `default:"DocumentID"`
 	DocumentType    string `default:"DocumentType"`
-	From            string
-	To              string `default:"Y. LazarIDes"`
-	CC              []string
 	Bucket          string
 	tags            []string
 	meta            map[string]string
@@ -76,47 +87,13 @@ type Doc struct {
 	Cover           interface{}
 	DateCreated     string
 	DateLastRevised string
-	Author          string `default:"Dr. Y. LazarIDes"`
+	Author          string `default:"Dr. Y. Lazarides"`
 	Maintainer      string
 	Settings        latexSettings
 }
 
-// Rfi returns an RF
-func (c *Doc) Rfi() {
-	fmt.Println("isRFI")
-}
+func Show (c *Doc)(){
 
-// Drawing returns a drawing
-func (c *Doc) Drawing() {
-	fmt.Println("isDrawing")
-}
-
-// Memo returns a new Memo type
-func (c *Doc) Memo() {
-	fmt.Println("isMemo")
-}
-
-// Letter returns a new Letter
-func (c *Doc) Letter() {
-	fmt.Println("isLetter")
-}
-
-
-func (c *Doc) getDocumentType() {
-	switch c.DocumentType {
-	case "RFI":
-		c.Rfi()
-	case "DRG":
-		c.Drawing()
-	case "MEMO":
-		c.Memo()
-	case "LETTER":
-		c.Letter()
-	default:
-		fmt.Println("default case. This is an unknown document type")
-	}
-	//fmt.Println(c.DocumentType)
-	return
 }
 
 // Render the document through a set of templates
@@ -172,33 +149,12 @@ func init() {
 	// get and compile the template here
 }
 
-// TestVarious provides a short example
-func TestVarious() {
-	doc := new(Doc)
-	doc2 := new(Doc)
-	doc3 := new(Doc)
-	doc.DocumentType = "RFI"
-	doc2.DocumentType = "DRG"
-	doc3.DocumentType = "LETTER"
-	doc.getDocumentType()
-	doc2.getDocumentType()
-	doc3.getDocumentType()
-	x := latex.NewCompileTask()
-	fmt.Println(x)
-}
-
 // SetDefaults function provides a ...
 func SetDefaults(doc *Doc) {
 	defaults.SetDefaults(doc) //changes only if empty
 }
 
-//Example function rake a Doc type and returns its properties
-func Example(doc *Doc) {
-	doc.DocumentType = "RFI"
-	doc.Title = "The Amazing Golangerer Book"
-	doc.LatexTemplate = "book.tex"
-	doc.Bucket = "aws/phd/templates"
-}
+
 
 // New Creates a new Document type in memory
 func New(latexClass string) *Doc {
@@ -288,8 +244,8 @@ func TestWriteFile() {
 	//testFS.Remove(filename) // ignore error
 }
 // Program starts here
-func main() {
-	TestWriteFile()
+func Run() {
+	//TestWriteFile()
 	//a, _ := AppFs.Open("report.bat")
 	//fs:= new(afero.OsFs)
 	//err := fs.Mkdir("temp1", 777)
@@ -307,7 +263,7 @@ func main() {
 	Render(doc)
 	//Render(doc1)
 	// initialize the paths for sections directories
-	paths := paths{"./sections", "main.tex", "C:/Projects/Go/src/phd/pkg/document"}
+	paths := paths{"./sections", "main.tex", "C:/Projects/Go/src/gotex/"}
 
 	PartialLatexFiles(paths.defaultSectionsDir + paths.defaultMainFile)
 
@@ -315,7 +271,7 @@ func main() {
 	cmd := exec.Command("lualatex.exe", "output.tex", "--interaction=nonstopmode")
 	// sets the directory we are operating in
 	//
-	cmd.Dir = "c:/Projects/Go/src/phd/pkg/document/templates"
+	cmd.Dir = "c:/Projects/Go/src/gotex/templates"
 	out, err := cmd.CombinedOutput()
 	fmt.Printf("OUT = %v\n", string(out))
 	checkError(err)

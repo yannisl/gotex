@@ -9,6 +9,7 @@ import (
 	"github.com/yannisl/gotex/MWE"
 	"github.com/yannisl/gotex/enviro"
 	"github.com/yannisl/gotex/tabular"
+	"gotex/document"
 )
 
 func main() {
@@ -45,4 +46,6 @@ func main() {
 	t3.CreateLaTeXStyle("test.sty", "")
 
 	mwe.Parse3()
+
+	document.Run()
 }

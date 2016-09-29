@@ -1,5 +1,4 @@
-// Package mwe
-// creates and manipulates MWE for LaTeX
+// Package mwe creates and manipulates MWE for LaTeX
 // Also can parse a .tex file and create
 // minimum examples from the directories of file name
 // can number them automatically.
@@ -14,12 +13,13 @@ import (
 	"strconv"
 )
 
-// MWE is an interface to create Minimum Working Examples
+// MWEInterface is an interface to create Minimum Working Examples
 // of LaTeX documents
 type MWEInterface interface {
 	CreateMWE(path string, latexOptions ...string)
 }
 
+// MWE is a struct for building Minimum Working Examples.
 type MWE struct {
 	Type                  string
 	FileName              string
@@ -29,7 +29,7 @@ type MWE struct {
 	Version               string
 }
 
-var templ string = `% From Wikibooks
+var templ  = `% From Wikibooks
 %% https://en.wikibooks.org/wiki/LaTeX/Creating_Packages
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{custom}[2013/01/13 Custom Package]
@@ -52,7 +52,8 @@ var templ string = `% From Wikibooks
 %% Traditional LaTeX or TeX follows...
 \endinput`
 
-var CharacterTable string = `%<*package>
+// CharacterTable as used in a dtx.
+var CharacterTable = `%<*package>
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -70,7 +71,8 @@ var CharacterTable string = `%<*package>
 %%   Right brace   \}     Tilde         \~}
 %</package>`
 
-var Test string = `\begin{document}
+// Test provides a string for a MWE.
+var Test  = `\begin{document}
  				 \chapter{Test} 	
 				 This is the body of the document
 				 \begin{figure}
@@ -78,6 +80,7 @@ var Test string = `\begin{document}
 				 \end{figure}
                  \end{document}`
 
+// Sty  bprovides a structure for style files.
 type Sty struct {
 	Type        string
 	FileName    string
@@ -132,12 +135,13 @@ func (t *LaTeXClass) CreateLaTeXClass(path string, body string, latexOptions ...
 	fmt.Print(string(d))
 }
 
-//Usage Example
+//Example exports an example.
 func Example() {
 	t := new(MWE)
 	t.CreateMWE("mwe1.tex", "code...")
 }
 
+// Extract extracts everything between a begin and end document.
 func Extract() {
 	Num:=1
 	//gets anything between body
@@ -183,6 +187,7 @@ func computedFrom(s string) string {
         return fmt.Sprintf("computedFrom(%s)", s)
 }
 
+// Parse2 parses a key value string.
 func Parse2(){
         input := `b:foo="hop" b:bar="hu?"`
         r := regexp.MustCompile(`\b.:\w+="([^"]+)"`)
@@ -194,6 +199,7 @@ func Parse2(){
         }))
 }
 
+// Parse3 encloses a figure.
 func Parse3(){
         input := `\\begin{figure}
                    Something
@@ -202,7 +208,7 @@ func Parse3(){
         r2 := regexp.MustCompile(`(?s)(.+)\\\\end{figure}`)
         fmt.Println(r.ReplaceAllStringFunc(input, func(m string) string {
                 match := string(r2.Find([]byte(m)))
-                fmt.Println("\n M:",m,"\n")
+                fmt.Println("\n M:",m)
                 return r2.ReplaceAllString(m, computedFrom(match))
         }))
 }

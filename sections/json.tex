@@ -1,0 +1,48 @@
+\chapter{Json}
+
+
+\subsection{Selectors for Json}
+
+If you are familiar with CSS, then you know what selectors are:
+
+\begin{verbatim}
+{
+  "title": "Java 4-ever",
+  "url": "http://www.youtube.com/watch?v=H7QVITAWdBQ",
+  "actors": [
+    {
+      "name": "Scala Johansson",
+      "character": "A"
+    },
+    {
+      "name": "William Windows",
+      "character": "B"
+    },
+    {
+      "name": "Eddie Larrison",
+      "character": "C"
+    },
+    {
+      "name": "Mona Lisa Harddrive",
+      "character": "D"
+    },
+    {
+      "name": "Lenny Linux",
+      "character": "C (Young)"
+    }
+  ]
+}
+
+\end{verbatim}
+
+With Json Pointer specification, information can be retrieved as 
+
+\verb+ "actors\1\name" + 
+
+In reality this is not very elegant...
+
+See some valid criticism at \href{http://susanpotter.net/blogs/software/2011/07/why-json-pointer-falls-short/}{json pointer vs xpath}. Although there are valid arguments for using an xpath type of arguments, I am not convinced people are willing 
+to turn the clock back and start using xpath.
+
+See RFC 6901 \url{https://tools.ietf.org/html/rfc6901}
+
