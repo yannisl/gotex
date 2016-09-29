@@ -1,14 +1,13 @@
-// document
+// Package document provides utility functions
+// for rendering a LaTeX document.
 // A document can be any paper or electronic document
 // transmitted
-
 // This package was an attempt for me to use text/template to make
 // writing LaTeX code easier.
 //
 // It is also IDeal for reports and repetitive LaTeX tasks.
 // Nothing that is here cannot be programmed in TeX itself, well
 // almost.
-//
 package document
 
 import (
@@ -39,7 +38,7 @@ type paths struct {
 
 // non standard settings: these are to be obtaned from TOML files
 type latexSettings struct {
-	useHyperRef  bool `default:true`
+	useHyperRef  bool `default:"true"`
 	colorLinks   string
 	author       string
 	makeStyle    bool
@@ -48,9 +47,9 @@ type latexSettings struct {
 	}
 
 type hyper struct {
-	breakLinks   bool  `default:true`
-	bookmarksOpen bool `default:true`
-	bookmarks     bool `default:true`
+	breakLinks   bool  `default:"true"`
+	bookmarksOpen bool `default:"true"`
+	bookmarks     bool `default:"true"`
 }
 
 
@@ -92,6 +91,7 @@ type Doc struct {
 	Settings        latexSettings
 }
 
+// Show is a function for outputting the document to stdout 
 func Show (c *Doc)(){
 
 }
@@ -243,7 +243,7 @@ func TestWriteFile() {
 	f.Close()
 	//testFS.Remove(filename) // ignore error
 }
-// Program starts here
+// Run is a runner for executing the commands.
 func Run() {
 	//TestWriteFile()
 	//a, _ := AppFs.Open("report.bat")
