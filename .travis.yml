@@ -25,9 +25,6 @@ script:
 notifications:
   email: false
 
-addons:
-    artifacts: true
-
  
 after_success:
     - bash <(curl -s https://codecov.io/bash)
